@@ -18,17 +18,6 @@ public class CalculatorPO {
         return assumedNumber; 
     }
 
-   
-    public static double cubeRoot(double a) {
-        if (a == 0) return 0; 
-        double assumedNumber = a / 3; 
-        for (int i = 0; i < 10; i++) {
-        	assumedNumber = (2 * assumedNumber + a / (assumedNumber * assumedNumber)) / 3; 
-        }
-        return assumedNumber; 
-    }
-
-
   
     public static double power(double a, double b) {
         double result = 1;
@@ -113,7 +102,7 @@ public class CalculatorPO {
         String operator = sc.next();
 
         double num2 = 0;
-        if (!(operator.equals("sqrt") || operator.equals("cbrt") || operator.equals("!") || operator.equals("neg"))) {
+        if (!(operator.equals("sqrt") || operator.equals("!") || operator.equals("neg"))) {
             System.out.print("Enter second number: ");
             num2 = sc.nextDouble();
         }

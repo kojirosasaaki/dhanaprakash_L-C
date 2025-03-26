@@ -13,7 +13,7 @@ public class CalculatorOOP {
         String operator = sc.next();
 
         double num2 = 0;
-        if (!operator.equals("sqrt") && !operator.equals("cbrt") && !operator.equals("!") && !operator.equals("neg")) {
+        if (!operator.equals("sqrt") && !operator.equals("!") && !operator.equals("neg")) {
             System.out.print("Enter second number: ");
             num2 = sc.nextDouble();
         }

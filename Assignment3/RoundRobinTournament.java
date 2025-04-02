@@ -7,13 +7,13 @@ public class RoundRobinTournament {
         Scanner scanner = new Scanner(System.in);
         
         System.out.print("Enter the no of teams: ");
-        int teams = scanner.nextInt();
+        int numberOfTeams = scanner.nextInt();
         
-        if (teams < 2) {
+        if (numberOfTeams < 2) {
             System.out.println("There must be at least two teams to play a Round Robin tournament.");
         } 
         else {
-            int matches = calculateRoundRobinMatches(teams);
+            int totalMatches = calculateRoundRobinMatches(numberOfTeams);
             System.out.println("Total no of matches to be played in Round Robin method: " + matches);
         }
         
@@ -21,9 +21,9 @@ public class RoundRobinTournament {
     }
     
     public static int calculateRoundRobinMatches(int teams) {
-        if (teams < 2) {
+        if (numberOfTeams < 2) {
             return 0;  
         }
-        return (teams * (teams - 1)) / 2;  
+        return (numberOfTeams * (numberOfTeams - 1)) / 2;  
     }
 }

@@ -1,3 +1,5 @@
+package Assignment3;
+
 import java.util.Scanner;
 
 public class RoundRobinTournament {
@@ -14,13 +16,13 @@ public class RoundRobinTournament {
         } 
         else {
             int totalMatches = calculateRoundRobinMatches(numberOfTeams);
-            System.out.println("Total no of matches to be played in Round Robin method: " + matches);
+            System.out.println("Total no of matches to be played in Round Robin method: " + totalMatches);
         }
         
         scanner.close();
     }
     
-    public static int calculateRoundRobinMatches(int teams) {
+    public static int calculateRoundRobinMatches(int numberOfTeams) {
         if (numberOfTeams < 2) {
             return 0;  
         }

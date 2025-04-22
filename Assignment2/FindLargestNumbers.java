@@ -1,47 +1,71 @@
+package Assignment2;
+
 import java.util.Scanner;
 
 public class FindLargestNumbers {
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        InputHandler inputHandler = new InputHandler();
+        ArrayPrinter arrayPrinter = new ArrayPrinter();
+        LargestFinder finder = new LargestFinder();
 
+        int[] numbers = inputHandler.readNumbers();
+        arrayPrinter.printArray(numbers);
+
+        int[] result = finder.findTwoLargest(numbers);
+
+        System.out.println("1st largest number: " + result[0]);
+        System.out.println("2nd largest number: " + result[1]);
+
+        inputHandler.close();
+    }
+}
+
+class InputHandler {
+    private final Scanner scanner = new Scanner(System.in);
+
+    public int[] readNumbers() {
         System.out.print("Enter the size of the array: ");
-        int arraySize = scanner.nextInt();
+        int size = scanner.nextInt();
+        int[] numbers = new int[size];
 
-        int[] numbers = new int[arraySize];
-
-        System.out.println("Enter " + arraySize + " numbers into the array: ");
-        for (int i = 0; i < arraySize; i++) {
+        System.out.println("Enter " + size + " numbers into the array: ");
+        for (int i = 0; i < size; i++) {
             numbers[i] = scanner.nextInt();
         }
 
-        int index = 0;
-        for (int num : numbers) {
-            System.out.println("Element at index " + index + ": " + num);
-            index++;
-        }
-
-        int[] largestNumbers = findFirstAndSecondLargest(numbers);
-
-        System.out.println("1st largest number: " + largestNumbers[0]);
-        System.out.println("2nd largest number: " + largestNumbers[1]);
-
-        scanner.close();
+        return numbers;
     }
 
-    public static int[] findFirstAndSecondLargest(int[] numbers) {
-        int firstLargest = Integer.MIN_VALUE;
-        int secondLargest = Integer.MIN_VALUE;
+    public void close() {
+        scanner.close();
+    }
+}
+
+
+class ArrayPrinter {
+    public void printArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.println("Element at index " + i + ": " + array[i]);
+        }
+    }
+}
+
+
+class LargestFinder {
+    public int[] findTwoLargest(int[] numbers) {
+        int first = Integer.MIN_VALUE;
+        int second = Integer.MIN_VALUE;
 
         for (int num : numbers) {
-            if (num > firstLargest) {
-                secondLargest = firstLargest;
-                firstLargest = num;
-            } else if (num > secondLargest && num != firstLargest) {
-                secondLargest = num;
+            if (num > first) {
+                second = first;
+                first = num;
+            } else if (num > second && num != first) {
+                second = num;
             }
         }
 
-        return new int[]{firstLargest, secondLargest};
+        return new int[]{first, second};
     }
 }
+

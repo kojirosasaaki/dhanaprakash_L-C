@@ -1,107 +1,117 @@
-import java.util.ArrayList;
-import java.util.List;
+package Assignment1;
 
-class Marks {
+import java.util.*;
+
+public class Marks {
+    public static void main(String[] args) {
+        List<SubjectMarks> marks1 = Arrays.asList(
+            new SubjectMarks("english", 85),
+            new SubjectMarks("biology", 90),
+            new SubjectMarks("maths", 78)
+        );
+        List<SubjectMarks> marks2 = Arrays.asList(
+            new SubjectMarks("english", 70),
+            new SubjectMarks("biology", 88),
+            new SubjectMarks("maths", 92)
+        );
+        List<SubjectMarks> marks3 = Arrays.asList(
+            new SubjectMarks("english", 95),
+            new SubjectMarks("biology", 80),
+            new SubjectMarks("maths", 85)
+        );
+
+        List<Student> studentList = Arrays.asList(
+            new Student("A", 101, marks1),
+            new Student("B", 102, marks2),
+            new Student("C", 103, marks3)
+        );
+
+        int selectedRoll = 102;
+
+        StudentFinder finder = new StudentFinder();
+        Student student = finder.findStudentByRoll(selectedRoll, studentList);
+
+        if (student == null) {
+            new StudentPrinter().printNotFound(selectedRoll);
+        } else {
+            MarksCalculator calculator = new MarksCalculator();
+            int total = calculator.getTotal(student.marksList);
+            double percentage = calculator.getPercentage(student.marksList);
+            new StudentPrinter().printStudentDetails(student, total, percentage);
+        }
+    }
+}
+
+class SubjectMarks {
     String subject;
     int marks;
 
-    public Marks(String subject, int marks) {
+    public SubjectMarks(String subject, int marks) {
         this.subject = subject;
         this.marks = marks;
     }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public int getMarks() {
-        return marks;
-    }
 }
+
 
 class Student {
     String name;
     int rollno;
-    List<Marks> marksList;
+    List<SubjectMarks> marksList;
 
-    public Student(String name, int rollno, List<Marks> marksList) {
+    public Student(String name, int rollno, List<SubjectMarks> marksList) {
         this.name = name;
         this.rollno = rollno;
         this.marksList = marksList;
     }
+}
 
-    public String getName() {
-        return name;
-    }
 
-    public int getRollno() {
-        return rollno;
-    }
-
-    public List<Marks> getMarksList() {
-        return marksList;
+class StudentFinder {
+    public Student findStudentByRoll(int rollno, List<Student> students) {
+        for (Student s : students) {
+            if (s.rollno == rollno) {
+                return s;
+            }
+        }
+        return null;
     }
 }
 
-public class Main {
-    public static void display(int selectedRollNumber, List<Student> studentList) {
-        int maxMarksPerSubject = 100;
-        Student selectedStudent = null;
 
-        for (Student student : studentList) {
-            if (student.getRollno() == selectedRollNumber) {
-                selectedStudent = student;
-                break;
-            }
+class MarksCalculator {
+    private final int maxMarksPerSubject = 100;
+
+    public int getTotal(List<SubjectMarks> marksList) {
+        int total = 0;
+        for (SubjectMarks m : marksList) {
+            total += m.marks;
         }
+        return total;
+    }
 
-        if (selectedStudent == null) {
-            System.out.println("Not found: " + selectedRollNumber);
-            return;
-        }
+    public double getPercentage(List<SubjectMarks> marksList) {
+        if (marksList.isEmpty()) return 0;
+        int total = getTotal(marksList);
+        return (total / (double) (marksList.size() * maxMarksPerSubject)) * 100;
+    }
+}
 
-        int totalMarks = 0;
-        for (Marks marks : selectedStudent.getMarksList()) {
-            totalMarks += marks.getMarks();
-        }
 
-        int numberOfSubjects = selectedStudent.getMarksList().size();
-        double percentage = (totalMarks / (double) (numberOfSubjects * maxMarksPerSubject)) * 100;
-
-        System.out.println("Name: " + selectedStudent.getName());
-        System.out.println("Roll: " + selectedStudent.getRollno());
+class StudentPrinter {
+    public void printStudentDetails(Student student, int total, double percentage) {
+        System.out.println("Name: " + student.name);
+        System.out.println("Roll: " + student.rollno);
         System.out.println("Details:");
-        for (Marks marks : selectedStudent.getMarksList()) {
-            System.out.println(" " + marks.getSubject() + ": " + marks.getMarks());
+        for (SubjectMarks m : student.marksList) {
+            System.out.println(" " + m.subject + ": " + m.marks);
         }
-        System.out.println("Total: " + totalMarks);
+        System.out.println("Total: " + total);
         System.out.println("Percentage: " + String.format("%.2f", percentage) + "%");
         System.out.println("----------------------");
     }
 
-    public static void main(String[] args) {
-        Marks[] marks1 = {
-            new Marks("english", 85),
-            new Marks("biology", 90),
-            new Marks("maths", 78)
-        };
-        Marks[] marks2 = {
-            new Marks("english", 70),
-            new Marks("biology", 88),
-            new Marks("maths", 92)
-        };
-        Marks[] marks3 = {
-            new Marks("english", 95),
-            new Marks("biology", 80),
-            new Marks("maths", 85)
-        };
-
-        Student[] studentList = {
-            new Student("A", 101, marks1),
-            new Student("B", 102, marks2),
-            new Student("C", 103, marks3)
-        };
-
-        display(102, studentList);
+    public void printNotFound(int rollno) {
+        System.out.println("Not found: " + rollno);
     }
 }
+

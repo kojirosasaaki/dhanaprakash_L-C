@@ -1,7 +1,31 @@
+package Assignment1;
+
 import java.util.Scanner;
 
 public class ArmstrongNumber {
-    public static int getArmstrongNumber(int number) {
+    public static void main(String[] args) {
+        InputReader inputReader = new InputReader();
+        ArmstrongCalculator calculator = new ArmstrongCalculator();
+        OutputPrinter outputPrinter = new OutputPrinter();
+
+        int userInput = inputReader.readNumber();
+        boolean result = calculator.isArmstrong(userInput);
+        outputPrinter.printResult(userInput, result);
+    }
+}
+
+class InputReader {
+    public int readNumber() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("\nPlease enter the number to check for Armstrong: ");
+        int number = Integer.parseInt(scanner.nextLine());
+        scanner.close();
+        return number;
+    }
+}
+
+class ArmstrongCalculator {
+    public int getArmstrongNumber(int number) {
         int armstrongNumber = 0;
         int digits = 0;
         int temporaryInput = number;
@@ -22,22 +46,23 @@ public class ArmstrongNumber {
         return armstrongNumber;
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("\nPlease enter the number to check for Armstrong: ");
-        int userInput = Integer.parseInt(scanner.nextLine());
-
-        if (userInput <= 0) {
-            System.out.println("Invalid input. Please enter a positive integer.");
-        } else {
-            if (userInput == getArmstrongNumber(userInput)) {
-                System.out.println("\n" + userInput + " is an Armstrong number.\n");
-            } else {
-                System.out.println("\n" + userInput + " is not an Armstrong number.\n");
-            }
-        }
-
-        scanner.close();
+    public boolean isArmstrong(int number) {
+        return number == getArmstrongNumber(number);
     }
 }
+
+
+class OutputPrinter {
+    public void printResult(int number, boolean isArmstrong) {
+        if (number <= 0) {
+            System.out.println("Invalid input. Please enter a positive integer.");
+        } else if (isArmstrong) {
+            System.out.println("\n" + number + " is an Armstrong number.\n");
+        } else {
+            System.out.println("\n" + number + " is not an Armstrong number.\n");
+        }
+    }
+}
+
+
+

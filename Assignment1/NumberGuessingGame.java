@@ -1,8 +1,16 @@
-import java.util.Scanner;
+package Assignment1;
+
 import java.util.Random;
+import java.util.Scanner;
 
 public class NumberGuessingGame {
-    public static boolean isNumber(String input) {
+    public static void main(String[] args) {
+        new GameRunner().start();
+    }
+}
+
+class InputValidator {
+    public boolean isNumber(String input) {
         try {
             Integer.parseInt(input);
             return true;
@@ -10,39 +18,57 @@ public class NumberGuessingGame {
             return false;
         }
     }
+}
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+
+class GuessingGameLogic {
+    private final int targetNumber;
+    private int guessCount = 0;
+
+    public GuessingGameLogic() {
         Random random = new Random();
-        int randomNo = random.nextInt(100) + 1;
-        boolean guessed = false;
-        int guessCount = 0;
+        targetNumber = random.nextInt(100) + 1;
+    }
+
+    public boolean checkGuess(String input, InputValidator validator) {
+        if (!validator.isNumber(input)) {
+            System.out.print("I won't count this one. Please enter a number between 1 and 100: ");
+            return false;
+        }
+
+        guessCount++;
+        int guess = Integer.parseInt(input);
+
+        if (guess < targetNumber) {
+            System.out.print("Too low. Guess again: ");
+        } else if (guess > targetNumber) {
+            System.out.print("Too high. Guess again: ");
+        } else {
+            System.out.println("You guessed it in " + guessCount + " guesses!");
+            return true;
+        }
+        return false;
+    }
+}
+
+
+class GameRunner {
+    public void start() {
+        Scanner scanner = new Scanner(System.in);
+        InputValidator validator = new InputValidator();
+        GuessingGameLogic game = new GuessingGameLogic();
 
         System.out.print("Guess a number between 1 and 100: ");
-        String userGuess = scanner.nextLine();
+        String userInput = scanner.nextLine();
 
-        while (!guessed) {
-            if (!isNumber(userGuess)) {
-                System.out.print("I won't count this one. Please enter a number between 1 and 100: ");
-                userGuess = scanner.nextLine();
-                continue;
+        while (true) {
+            if (game.checkGuess(userInput, validator)) {
+                break;
             }
-
-            guessCount++;
-            int guess = Integer.parseInt(userGuess);
-
-            if (guess < randomNo) {
-                System.out.print("Too low. Guess again: ");
-                userGuess = scanner.nextLine();
-            } else if (guess > randomNo) {
-                System.out.print("Too high. Guess again: ");
-                userGuess = scanner.nextLine();
-            } else {
-                System.out.println("You guessed it in " + guessCount + " guesses!");
-                guessed = true;
-            }
+            userInput = scanner.nextLine();
         }
 
         scanner.close();
     }
 }
+

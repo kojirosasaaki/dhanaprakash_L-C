@@ -1,30 +1,69 @@
+package Assignment1;
+
 import java.util.Scanner;
 import java.util.Random;
 
 public class DiceRoller {
-    public static int rollDie(int sides) {
-        Random random = new Random();
-        return random.nextInt(sides) + 1;
-    }
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int sides = 6;
+        DiceInputHandler inputHandler = new DiceInputHandler();
+        DiceOutputHandler outputHandler = new DiceOutputHandler();
+        Dice dice = new Dice(6);
+
         boolean continueRolling = true;
 
         while (continueRolling) {
-            System.out.print("Ready to roll? Enter Q to Quit: ");
-            String input = scanner.nextLine();
-
-            if (!input.equalsIgnoreCase("q")) {
-                int rollDie = rollDie(sides);
-                System.out.println("You have rolled a " + rollDie);
-            } else {
-                continueRolling = false;
+            continueRolling = inputHandler.shouldContinue();
+            if (continueRolling) {
+                int roll = dice.roll();
+                outputHandler.showRoll(roll);
             }
         }
 
-        System.out.println("Thank you for playing!");
+        outputHandler.showExitMessage();
+        inputHandler.closeScanner();
+    }
+}
+
+
+class DiceInputHandler {
+    private Scanner scanner = new Scanner(System.in);
+
+    public boolean shouldContinue() {
+        System.out.print("Ready to roll? Enter Q to Quit: ");
+        String input = scanner.nextLine();
+        return !input.equalsIgnoreCase("q");
+    }
+
+    public void closeScanner() {
         scanner.close();
     }
 }
+
+
+class Dice {
+    private int sides;
+    private Random random;
+
+    public Dice(int sides) {
+        this.sides = sides;
+        this.random = new Random();
+    }
+
+    public int roll() {
+        return random.nextInt(sides) + 1;
+    }
+}
+
+
+class DiceOutputHandler {
+    public void showRoll(int roll) {
+        System.out.println("You have rolled a " + roll);
+    }
+
+    public void showExitMessage() {
+        System.out.println("Thank you for playing!");
+    }
+}
+
+
+

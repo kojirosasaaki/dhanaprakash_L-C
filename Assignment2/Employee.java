@@ -1,4 +1,6 @@
-Class Employee
+package Assignment2;
+
+class Employee
 {
  public int employeeId;
  public String employeeName;
@@ -6,16 +8,18 @@ Class Employee
  public boolean isWorking;
 
 public void saveEmployeeToDatabase() {
-        // Method code here
+        
 }
 public void printEmployeeDetailReportXML() {
-        // Method code here
+        
 }
 public void printEmployeeDetailReportCSV() {
-        // Method code here
+        
 }
 public void terminateEmployee() {
-        // Method code here
+        
 }
-public bool isWorking()
-}; 
+public boolean isWorking() {
+	return isWorking;
+}
+}

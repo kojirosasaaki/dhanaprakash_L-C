@@ -15,7 +15,7 @@ public class SecurityConfig {
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails user = User.withUsername("admin")
-                .password("{noop}admin123") // {noop} tells Spring to use plain text
+                .password("{noop}admin123") 
                 .roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(user);
@@ -23,7 +23,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance(); // Plain text password
+        return NoOpPasswordEncoder.getInstance(); 
     }
 
     @Bean
@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()
             .and()
-            .httpBasic(); // Enable Basic Auth
+            .httpBasic(); 
 
         return http.build();
     }

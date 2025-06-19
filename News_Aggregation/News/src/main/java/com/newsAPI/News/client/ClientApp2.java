@@ -27,7 +27,6 @@ public class ClientApp2 {
         URL url = new URL(BASE_URL + "/add");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-        // Authentication
         String username = "admin";
         String password = "admin123";
         String auth = username + ":" + password;
@@ -35,17 +34,14 @@ public class ClientApp2 {
         String authHeaderValue = "Basic " + encodedAuth;
         conn.setRequestProperty("Authorization", authHeaderValue);
 
-        // Request setup
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setDoOutput(true);
 
-        // Send JSON payload
         try (OutputStream os = conn.getOutputStream()) {
             os.write(json.getBytes());
         }
 
-        // Read response
         int responseCode = conn.getResponseCode();
         System.out.println("[Client 2] Server Response Code: " + responseCode);
 

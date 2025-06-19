@@ -33,7 +33,6 @@ public class ClientApp1 {
         String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
         String authHeaderValue = "Basic " + encodedAuth;
 
-        // ✅ Print to verify
         System.out.println("Authorization Header Sent: " + authHeaderValue);
 
         conn.setRequestProperty("Authorization", authHeaderValue);
@@ -43,7 +42,6 @@ public class ClientApp1 {
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setDoOutput(true);
 
-        // Send JSON
         try (OutputStream os = conn.getOutputStream()) {
             os.write(json.getBytes());
         }

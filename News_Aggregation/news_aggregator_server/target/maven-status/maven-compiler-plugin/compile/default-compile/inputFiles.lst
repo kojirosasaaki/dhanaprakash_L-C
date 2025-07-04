@@ -1,0 +1,11 @@
+D:\Learn&Code\news_aggregator_server\src\main\java\com\newsapp\news_aggregator\controller\NewsController.java
+D:\Learn&Code\news_aggregator_server\src\main\java\com\newsapp\news_aggregator\service\ExternalNewsService.java
+D:\Learn&Code\news_aggregator_server\src\main\java\com\newsapp\news_aggregator\repository\NewsRepository.java
+D:\Learn&Code\news_aggregator_server\src\main\java\com\newsapp\news_aggregator\controller\UserController.java
+D:\Learn&Code\news_aggregator_server\src\main\java\com\newsapp\news_aggregator\model\News.java
+D:\Learn&Code\news_aggregator_server\src\main\java\com\newsapp\news_aggregator\controller\AuthController.java
+D:\Learn&Code\news_aggregator_server\src\main\java\com\newsapp\news_aggregator\NewsAggregatorApplication.java
+D:\Learn&Code\news_aggregator_server\src\main\java\com\newsapp\news_aggregator\util\UserLoginTracker.java
+D:\Learn&Code\news_aggregator_server\src\main\java\com\newsapp\news_aggregator\model\User.java
+D:\Learn&Code\news_aggregator_server\src\main\java\com\newsapp\news_aggregator\repository\UserRepository.java
+D:\Learn&Code\news_aggregator_server\src\main\java\com\newsapp\news_aggregator\service\AuthService.java

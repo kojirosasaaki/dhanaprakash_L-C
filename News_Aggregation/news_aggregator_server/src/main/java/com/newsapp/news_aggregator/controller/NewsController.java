@@ -21,17 +21,14 @@ public class NewsController {
 
     @GetMapping
     public List<News> getAllNews() {
-        List<News> allNews = newsRepo.findAll();
-        List<News> onlyDescriptionList = new ArrayList<News>();
-        for (int i = 0; i < allNews.size(); i++) {
-            News original = allNews.get(i);
-            if (original.getDescription() != null && !original.getDescription().trim().isEmpty()) {
-                News n = new News();
-                n.setDescription(original.getDescription());
-                onlyDescriptionList.add(n);
-            }
+        List<News> original = newsRepo.findAll();
+        List<News> onlyDescriptions = new ArrayList<News>();
+        for (int i = 0; i < original.size(); i++) {
+            News news = new News();
+            news.setDescription(original.get(i).getDescription());
+            onlyDescriptions.add(news);
         }
-        return onlyDescriptionList;
+        return onlyDescriptions;
     }
 
     @GetMapping("/fetch")

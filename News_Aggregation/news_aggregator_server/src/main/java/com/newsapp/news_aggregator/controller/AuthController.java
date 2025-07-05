@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -41,5 +43,11 @@ public class AuthController {
     public ResponseEntity<String> logout() {
         authService.logout();
         return ResponseEntity.ok("Logged out.");
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userRepo.findAll();
+        return ResponseEntity.ok(users);
     }
 }

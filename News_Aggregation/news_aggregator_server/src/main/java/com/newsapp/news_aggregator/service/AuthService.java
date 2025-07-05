@@ -16,33 +16,14 @@ public class AuthService {
     }
 
     public boolean signUp(String username, String email, String password, String role) {
-        if (username == null || username.trim().isEmpty()) {
-            return false;
-        }
+        if (username == null || username.trim().isEmpty()) return false;
+        if (email == null || email.trim().isEmpty()) return false;
+        if (!email.endsWith("@gmail.com")) return false;
+        if (password == null || password.trim().isEmpty()) return false;
+        if (!role.equalsIgnoreCase("ADMIN") && !role.equalsIgnoreCase("USER")) return false;
 
-        if (email == null || email.trim().isEmpty()) {
-            return false;
-        }
-
-        if (!email.endsWith("@gmail.com")) {
-            return false;
-        }
-
-        if (password == null || password.trim().isEmpty()) {
-            return false;
-        }
-
-        if (!role.equalsIgnoreCase("ADMIN") && !role.equalsIgnoreCase("USER")) {
-            return false;
-        }
-
-        if (userRepo.findByUsername(username) != null) {
-            return false;
-        }
-
-        if (userRepo.findByEmail(email) != null) {
-            return false;
-        }
+        if (userRepo.findByUsername(username) != null) return false;
+        if (userRepo.findByEmail(email) != null) return false;
 
         User user = new User(username, email, password, role.toUpperCase());
         userRepo.save(user);
@@ -51,14 +32,7 @@ public class AuthService {
 
     public boolean login(String username, String password) {
         User user = userRepo.findByUsername(username);
-        if (user == null) {
-            return false;
-        }
-
-        if (!user.getPassword().equals(password)) {
-            return false;
-        }
-
+        if (user == null || !user.getPassword().equals(password)) return false;
         currentUser = user;
         UserLoginTracker.setLoggedIn(true);
         return true;

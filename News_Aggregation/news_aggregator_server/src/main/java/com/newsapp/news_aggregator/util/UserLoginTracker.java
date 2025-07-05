@@ -7,7 +7,7 @@ public class UserLoginTracker {
         return loggedIn;
     }
 
-    public static void setLoggedIn(boolean status) {
-        loggedIn = status;
+    public static void setLoggedIn(boolean value) {
+        loggedIn = value;
     }
 }

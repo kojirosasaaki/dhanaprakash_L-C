@@ -1,0 +1,11 @@
+com\newsapp\news_aggregator\controller\NewsController.class
+com\newsapp\news_aggregator\model\User.class
+com\newsapp\news_aggregator\util\UserLoginTracker.class
+com\newsapp\news_aggregator\service\AuthService.class
+com\newsapp\news_aggregator\model\News.class
+com\newsapp\news_aggregator\service\ExternalNewsService.class
+com\newsapp\news_aggregator\NewsAggregatorApplication.class
+com\newsapp\news_aggregator\repository\UserRepository.class
+com\newsapp\news_aggregator\controller\UserController.class
+com\newsapp\news_aggregator\controller\AuthController.class
+com\newsapp\news_aggregator\repository\NewsRepository.class

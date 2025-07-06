@@ -2,12 +2,9 @@ package com.newsapp.news_aggregator.controller;
 
 import com.newsapp.news_aggregator.model.User;
 import com.newsapp.news_aggregator.service.AuthService;
-import com.newsapp.news_aggregator.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -15,9 +12,6 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
-
-    @Autowired
-    private UserRepository userRepo;
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody User user) {
@@ -43,11 +37,5 @@ public class AuthController {
     public ResponseEntity<String> logout() {
         authService.logout();
         return ResponseEntity.ok("Logged out.");
-    }
-
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userRepo.findAll();
-        return ResponseEntity.ok(users);
     }
 }

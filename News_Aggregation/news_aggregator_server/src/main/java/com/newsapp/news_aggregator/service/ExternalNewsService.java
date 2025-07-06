@@ -6,14 +6,12 @@ import com.newsapp.news_aggregator.model.News;
 import com.newsapp.news_aggregator.repository.NewsRepository;
 import com.newsapp.news_aggregator.util.UserLoginTracker;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import jakarta.annotation.PostConstruct;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 @Service
 public class ExternalNewsService {
@@ -21,7 +19,6 @@ public class ExternalNewsService {
     private NewsRepository newsRepo;
     private RestTemplate rest = new RestTemplate();
     private ObjectMapper mapper = new ObjectMapper();
-    private Timer autoFetchTimer;
 
     @Value("${newsapi.base-url}")
     private String baseUrl;
@@ -39,21 +36,16 @@ public class ExternalNewsService {
         this.newsRepo = newsRepo;
     }
 
-    @PostConstruct
-    public void startAutoFetchThread() {
-        autoFetchTimer = new Timer(true);
-        autoFetchTimer.scheduleAtFixedRate(new TimerTask() {
-            public void run() {
-                if (UserLoginTracker.isLoggedIn()) {
-                    fetchNewsInternal(false, false);
-                }
-            }
-        }, 0, 60 * 1000); // every 60 seconds
+    @Scheduled(fixedRate = 60000)
+    public void autoFetchNews() {
+        if (UserLoginTracker.isLoggedIn()) {
+            fetchNewsInternal(false, false);
+        }
     }
 
     public String fetchNews(boolean printDescriptions) {
         StringBuilder output = new StringBuilder();
-        output.append("\nManually fetching news from external API...\n\n");
+        output.append("\nFollowing is the news fetched:-\n\n");
         output.append(fetchNewsInternal(printDescriptions, true));
         return output.toString();
     }
